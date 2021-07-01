@@ -1,0 +1,16 @@
+name: Validate Catalog
+
+on: [push, pull_request]
+
+jobs:
+  validate-catalog:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+    - name: Install Dependencies
+      run: pip install intake intake-xarray s3fs xarray zarr
+    - name: Check Catalog Entries
+      run: python validate_catalog.py
