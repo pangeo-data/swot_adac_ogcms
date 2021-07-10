@@ -4,146 +4,97 @@ plugins:
 
 sources:
 
-  neverworld_five_day_averages:
-    description: Five-day-average fields from Neverworld2
+  GIGATL:
+    description: GIGATL
+    parameters: # User parameters
+      region:
+        description: region
+        type: str
+        default: "1"
+        allowed: ["1", "2"]
+      depth:
+        description: surface ("surf") or interior ("int")
+        type: str
+        default: "surf"
+        allowed: ["surf", "int"]
+      season:
+        description: Feb, Mar, Apr ("fma") or Aug, Sep, Oct ("aso")
+        type: str
+        default: "fma"
+        allowed: ["fma", "aso"]
     driver: zarr
     args:
-      urlpath: s3://Pangeo/ocean-eddy-cpt/5-day-averages/
+      urlpath: 's3://Pangeo/pangeo-forge/swot_adac/GIGATL/Region0{{ region }}/{{ depth }}/{{ season }}.zarr'
       consolidated: True
       storage_options:
         anon: True
         client_kwargs:
           endpoint_url: 'https://ncsa.osn.xsede.org'
 
-  neverworld_quarter_degree_snapshots:
-    description: snapshots of fields from Neverworld2
-    driver: zarr
-    args:
-      urlpath: s3://Pangeo/ocean-eddy-cpt/quarter-degree/snapshots/
-      consolidated: True
-      storage_options:
-        anon: True
-        client_kwargs:
-          endpoint_url: 'https://ncsa.osn.xsede.org'
+  HYCOM50:
+      description: HYCOM50
+      parameters: # User parameters
+        region:
+          description: region
+          type: str
+          default: "1_GS"
+          allowed: ["1_GS", "2_GE", "3_MD"]
+        depth:
+          description: surface ("surf") or interior ("int")
+          type: str
+          default: "surf"
+          allowed: ["surf", "int"]
+        season:
+          description: Feb, Mar, Apr ("fma") or Aug, Sep, Oct ("aso")
+          type: str
+          default: "fma"
+          allowed: ["fma", "aso"]
+      driver: zarr
+      args:
+        urlpath: 's3://Pangeo/pangeo-forge/swot_adac/HYCOM50/Region0{{ region }}/{{ depth }}/{{ season }}.zarr'
+        consolidated: True
+        storage_options:
+          anon: True
+          client_kwargs:
+            endpoint_url: 'https://ncsa.osn.xsede.org'
 
-  neverworld_quarter_degree_averages:
-    description: 5-day average fields from Neverworld2
-    driver: zarr
-    args:
-      urlpath: s3://Pangeo/ocean-eddy-cpt/quarter-degree/averages/
-      consolidated: True
-      storage_options:
-        anon: True
-        client_kwargs:
-          endpoint_url: 'https://ncsa.osn.xsede.org'
+  eNATL60:
+      description: eNATL60
+      parameters: # User parameters
+        region:
+          description: region
+          type: str
+          default: "1"
+          allowed: ["1", "2", "3"]
+        depth:
+          description: surface ("surface_hourly") or (forthcoming) interior ("interior_daily")
+          type: str
+          default: "surface_hourly"
+          allowed: ["surface_hourly",]
+        season:
+          description: Feb, Mar, Apr ("fma") or Aug, Sep, Oct ("aso")
+          type: str
+          default: "fma"
+          allowed: ["fma", "aso"]
+      driver: zarr
+      args:
+        urlpath: 's3://Pangeo/pangeo-forge/swot_adac/eNATL60/Region0{{ region }}/{{ depth }}/{{ season }}.zarr'
+        consolidated: True
+        storage_options:
+          anon: True
+          client_kwargs:
+            endpoint_url: 'https://ncsa.osn.xsede.org'
 
-  neverworld_quarter_degree_static:
-    description: static fields from Neverworld2
-    driver: zarr
-    args:
-      urlpath: s3://Pangeo/ocean-eddy-cpt/quarter-degree/static/
-      consolidated: True
-      storage_options:
-        anon: True
-        client_kwargs:
-          endpoint_url: 'https://ncsa.osn.xsede.org'
+  INALT60:
+      description: INALT60
+      driver: zarr
+      args:
+        urlpath: 'not implemented'
 
-  neverworld_quarter_degree_stats:
-    description: Statistics of the model run from Neverworld2
-    driver: zarr
-    args:
-      urlpath: s3://Pangeo/ocean-eddy-cpt/quarter-degree/statistics/
-      consolidated: True
-      storage_options:
-        anon: True
-        client_kwargs:
-          endpoint_url: 'https://ncsa.osn.xsede.org'
-          
-  neverworld_eighth_degree_snapshots:
-    description: snapshots of fields from Neverworld2
-    driver: zarr
-    args:
-      urlpath: s3://Pangeo/ocean-eddy-cpt/eighth-degree/snapshots/
-      consolidated: True
-      storage_options:
-        anon: True
-        client_kwargs:
-          endpoint_url: 'https://ncsa.osn.xsede.org'
 
-  neverworld_eighth_degree_averages:
-    description: 5-day average fields from Neverworld2
-    driver: zarr
-    args:
-      urlpath: s3://Pangeo/ocean-eddy-cpt/eighth-degree/averages/
-      consolidated: True
-      storage_options:
-        anon: True
-        client_kwargs:
-          endpoint_url: 'https://ncsa.osn.xsede.org'
-
-  neverworld_eighth_degree_static:
-    description: static fields from Neverworld2
-    driver: zarr
-    args:
-      urlpath: s3://Pangeo/ocean-eddy-cpt/eighth-degree/static/
-      consolidated: True
-      storage_options:
-        anon: True
-        client_kwargs:
-          endpoint_url: 'https://ncsa.osn.xsede.org'
-
-  neverworld_eighth_degree_stats:
-    description: Statistics of the model run from Neverworld2
-    driver: zarr
-    args:
-      urlpath: s3://Pangeo/ocean-eddy-cpt/eighth-degree/statistics/
-      consolidated: True
-      storage_options:
-        anon: True
-        client_kwargs:
-          endpoint_url: 'https://ncsa.osn.xsede.org'
-
-  neverworld_sixteenth_degree_snapshots:
-    description: snapshots of fields from Neverworld2
-    driver: zarr
-    args:
-      urlpath: s3://Pangeo/ocean-eddy-cpt/sixteenth-degree/snapshots/
-      consolidated: True
-      storage_options:
-        anon: True
-        client_kwargs:
-          endpoint_url: 'https://ncsa.osn.xsede.org'
-
-  neverworld_sixteenth_degree_averages:
-    description: 5-day average fields from Neverworld2
-    driver: zarr
-    args:
-      urlpath: s3://Pangeo/ocean-eddy-cpt/sixteenth-degree/averages/
-      consolidated: True
-      storage_options:
-        anon: True
-        client_kwargs:
-          endpoint_url: 'https://ncsa.osn.xsede.org'
-
-  neverworld_sixteenth_degree_static:
-    description: static fields from Neverworld2
-    driver: zarr
-    args:
-      urlpath: s3://Pangeo/ocean-eddy-cpt/sixteenth-degree/static/
-      consolidated: True
-      storage_options:
-        anon: True
-        client_kwargs:
-          endpoint_url: 'https://ncsa.osn.xsede.org'
-
-  neverworld_sixteenth_degree_stats:
-    description: Statistics of the model run from Neverworld2
-    driver: zarr
-    args:
-      urlpath: s3://Pangeo/ocean-eddy-cpt/sixteenth-degree/statistics/
-      consolidated: True
-      storage_options:
-        anon: True
-        client_kwargs:
-          endpoint_url: 'https://ncsa.osn.xsede.org'
+  FESOM:
+      description: INALT60
+      driver: zarr
+      args:
+        urlpath: 'not implemented'
 
