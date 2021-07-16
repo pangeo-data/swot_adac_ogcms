@@ -93,8 +93,23 @@ sources:
 
 
   FESOM:
-      description: INALT60
-      driver: zarr
-      args:
-        urlpath: 'not implemented'
-
+    description: FESOM
+    parameters: # User parameters
+      depth:
+        description: surface ("surf") or interior ("int")
+        type: str
+        default: "surf"
+        allowed: ["surf",] # "int"]
+      season:
+        description: Feb, Mar, Apr ("fma") or Aug, Sep, Oct ("aso")
+        type: str
+        default: "fma"
+        allowed: ["fma", "aso"]
+    driver: zarr
+    args:
+      urlpath: 's3://Pangeo/pangeo-forge/swot_adac/FESOM/{{ depth }}/{{ season }}.zarr'
+      consolidated: True
+      storage_options:
+        anon: True
+        client_kwargs:
+          endpoint_url: 'https://ncsa.osn.xsede.org'
