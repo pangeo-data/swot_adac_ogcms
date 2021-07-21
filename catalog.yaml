@@ -70,7 +70,7 @@ sources:
           description: surface ("surface_hourly") or (forthcoming) interior ("interior_daily")
           type: str
           default: "surface_hourly"
-          allowed: ["surface_hourly",]
+          allowed: ["surface_hourly", "interior_daily"]
         season:
           description: Feb, Mar, Apr ("fma") or Aug, Sep, Oct ("aso")
           type: str
