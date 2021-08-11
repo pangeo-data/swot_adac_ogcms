@@ -85,11 +85,11 @@ sources:
           client_kwargs:
             endpoint_url: 'https://ncsa.osn.xsede.org'
 
-  INALT60:
-      description: INALT60
-      driver: zarr
-      args:
-        urlpath: 'not implemented'
+  #INALT60:
+  #    description: INALT60
+  #    driver: zarr
+  #    args:
+  #      urlpath: 'not implemented'
 
 
   FESOM:
