@@ -113,3 +113,35 @@ sources:
         anon: True
         client_kwargs:
           endpoint_url: 'https://ncsa.osn.xsede.org'
+
+  ORCA36:
+    description: ORCA36
+    parameters: # User parameters
+      region:
+        description: region
+        type: str
+        default: "1"
+        allowed: ["1", "2", "3", "4"]
+      datatype:
+        description: surface ("surface_hourly"), interior ("interior_daily"), or grid ("grid")
+        type: str
+        default: "surface_hourly"
+        allowed: ["surface_hourly", "interior_daily", "grid"]
+      season:
+        description: Feb, Mar, Apr ("fma") or Aug, Sep, Oct ("aso")
+        type: str
+        default: ""
+        allowed: ["fma", "aso", ""]
+      grid:
+        description: Feb, Mar, Apr ("fma") or Aug, Sep, Oct ("aso")
+        type: str
+        default: ""
+        allowed: ["bathymetry", "meshmask", ""]
+    driver: zarr
+    args:
+      urlpath: 's3://Pangeo/pangeo-forge/swot_adac/orca36/region0{{ region }}-{{ datatype }}-{{ season }}{{ grid }}.zarr'
+      consolidated: True
+      storage_options:
+        anon: True
+        client_kwargs:
+          endpoint_url: 'https://ncsa.osn.xsede.org'
