@@ -3,11 +3,12 @@ from itertools import product
 
 import intake
 
-def main(params_only=False):
+def all_params():
+    
+    all_params = {}
 
     cat = intake.open_catalog('catalog.yaml')
     for item in cat:
-        print(f"\n{item}")
         description = cat[item].describe()
         params = description["user_parameters"]
         params = {params[i]["name"]: params[i]["allowed"] for i in range(len(params))}
@@ -34,11 +35,22 @@ def main(params_only=False):
                     {"region": i[0], "datatype": i[1], "grid": i[2]} for i in more_kwargs
                 ]
                 cat_kwargs = cat_kwargs + more_kwargs
+        
+        all_params.update({item: cat_kwargs})
 
-        print(f"{len(cat_kwargs)} parameterizations for {item}: {cat_kwargs}")
+    return all_params, cat
+
+
+def main(params_only=False, all_params=all_params):
+
+    all_params, cat = all_params()
+
+    for item in all_params.keys():
+        print(f"\n{item}")
+        print(f"{len(all_params[item])} parameterizations for {item}: {all_params[item]}")
 
         if not params_only:
-            for d in cat_kwargs:
+            for d in all_params[item]:
                 print(f"\n\n{item}: loading parameterization {d}")
                 ds = cat[item](**d).to_dask()
                 print(ds)
