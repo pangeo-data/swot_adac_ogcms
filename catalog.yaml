@@ -104,7 +104,7 @@ sources:
         description: surface ("surf") or interior ("int")
         type: str
         default: "surf"
-        allowed: ["surf",] # "int"]
+        allowed: ["surf", "int"]
       season:
         description: Feb, Mar, Apr ("fma") or Aug, Sep, Oct ("aso")
         type: str
