@@ -12,7 +12,7 @@ sources:
         type: str
         default: "1"
         allowed: ["1", "2"]
-      depth:
+      datatype:
         description: surface ("surf") or interior ("int")
         type: str
         default: "surf"
@@ -24,7 +24,7 @@ sources:
         allowed: ["fma", "aso"]
     driver: zarr
     args:
-      urlpath: 's3://Pangeo/pangeo-forge/swot_adac/GIGATL/Region0{{ region }}/{{ depth }}/{{ season }}.zarr'
+      urlpath: 's3://Pangeo/pangeo-forge/swot_adac/GIGATL/Region0{{ region }}/{{ datatype }}/{{ season }}.zarr'
       consolidated: True
       storage_options:
         anon: True
@@ -39,19 +39,24 @@ sources:
           type: str
           default: "1_GS"
           allowed: ["1_GS", "2_GE", "3_MD"]
-        depth:
-          description: surface ("surf") or interior ("int")
+        datatype:
+          description: surface ("surf"), interior ("int"), or grid ("grid")
           type: str
           default: "surf"
-          allowed: ["surf", "int"]
+          allowed: ["surf", "int", "grid"]
         season:
           description: Feb, Mar, Apr ("fma") or Aug, Sep, Oct ("aso")
           type: str
-          default: "fma"
-          allowed: ["fma", "aso"]
+          default: ""
+          allowed: ["fma", "aso", ""]
+        grid:
+          description: grid type
+          type: str
+          default: ""
+          allowed: ["grid", ""]
       driver: zarr
       args:
-        urlpath: 's3://Pangeo/pangeo-forge/swot_adac/HYCOM50/Region0{{ region }}/{{ depth }}/{{ season }}.zarr'
+        urlpath: 's3://Pangeo/pangeo-forge/swot_adac/HYCOM50/Region0{{ region }}/{{ datatype }}/{{ season }}{{ grid }}.zarr'
         consolidated: True
         storage_options:
           anon: True
@@ -66,7 +71,7 @@ sources:
           type: str
           default: "1"
           allowed: ["1", "2", "3"]
-        depth:
+        datatype:
           description: surface ("surface_hourly") or (forthcoming) interior ("interior_daily")
           type: str
           default: "surface_hourly"
@@ -78,24 +83,24 @@ sources:
           allowed: ["fma", "aso"]
       driver: zarr
       args:
-        urlpath: 's3://Pangeo/pangeo-forge/swot_adac/eNATL60/Region0{{ region }}/{{ depth }}/{{ season }}.zarr'
+        urlpath: 's3://Pangeo/pangeo-forge/swot_adac/eNATL60/Region0{{ region }}/{{ datatype }}/{{ season }}.zarr'
         consolidated: True
         storage_options:
           anon: True
           client_kwargs:
             endpoint_url: 'https://ncsa.osn.xsede.org'
 
-  INALT60:
-      description: INALT60
-      driver: zarr
-      args:
-        urlpath: 'not implemented'
+  #INALT60:
+  #    description: INALT60
+  #    driver: zarr
+  #    args:
+  #      urlpath: 'not implemented'
 
 
   FESOM:
     description: FESOM
     parameters: # User parameters
-      depth:
+      datatype:
         description: surface ("surf") or interior ("int")
         type: str
         default: "surf"
@@ -107,7 +112,39 @@ sources:
         allowed: ["fma", "aso"]
     driver: zarr
     args:
-      urlpath: 's3://Pangeo/pangeo-forge/swot_adac/FESOM/{{ depth }}/{{ season }}.zarr'
+      urlpath: 's3://Pangeo/pangeo-forge/swot_adac/FESOM/{{ datatype }}/{{ season }}.zarr'
+      consolidated: True
+      storage_options:
+        anon: True
+        client_kwargs:
+          endpoint_url: 'https://ncsa.osn.xsede.org'
+
+  ORCA36:
+    description: ORCA36
+    parameters: # User parameters
+      region:
+        description: region
+        type: str
+        default: "1"
+        allowed: ["1", "2", "3", "4"]
+      datatype:
+        description: surface ("surface_hourly"), interior ("interior_daily"), or grid ("grid")
+        type: str
+        default: "surface_hourly"
+        allowed: ["surface_hourly", "interior_daily", "grid"]
+      season:
+        description: Feb, Mar, Apr ("fma") or Aug, Sep, Oct ("aso")
+        type: str
+        default: ""
+        allowed: ["fma", "aso", ""]
+      grid:
+        description: grid type ("bathymetry" or "meshmask")
+        type: str
+        default: ""
+        allowed: ["bathymetry", "meshmask", ""]
+    driver: zarr
+    args:
+      urlpath: 's3://Pangeo/pangeo-forge/swot_adac/orca36/region0{{ region }}-{{ datatype }}-{{ season }}{{ grid }}.zarr'
       consolidated: True
       storage_options:
         anon: True
