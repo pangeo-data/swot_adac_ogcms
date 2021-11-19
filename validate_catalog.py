@@ -7,7 +7,7 @@ def all_params():
     
     all_params = {}
 
-    cat = intake.open_catalog('/home/jovyan/SWOT-AdAC/catalog.yaml')
+    cat = intake.open_catalog('./catalog.yaml')
     for item in cat:
         description = cat[item].describe()
         params = description["user_parameters"]
