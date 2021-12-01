@@ -31,6 +31,33 @@ sources:
         client_kwargs:
           endpoint_url: 'https://ncsa.osn.xsede.org'
 
+  HYCOM25:
+      description: HYCOM25
+      parameters: # User parameters
+        region:
+          description: region
+          type: str
+          default: "1"
+          allowed: ["1", "2", "3", "4", "5"]
+        datatype:
+          description: surface ("surface_hourly") only at this time
+          type: str
+          default: "surface_hourly"
+          allowed: ["surface_hourly"]
+        season:
+          description: Feb, Mar, Apr ("fma") or Aug, Sep, Oct ("aso")
+          type: str
+          default: "fma"
+          allowed: ["fma", "aso"]
+      driver: zarr
+      args:
+        urlpath: 's3://Pangeo/pangeo-forge/swot_adac/HYCOM25/Region0{{ region }}/{{ datatype }}/{{ season }}.zarr'
+        consolidated: True
+        storage_options:
+          anon: True
+          client_kwargs:
+            endpoint_url: 'https://ncsa.osn.xsede.org'
+
   HYCOM50:
       description: HYCOM50
       parameters: # User parameters
