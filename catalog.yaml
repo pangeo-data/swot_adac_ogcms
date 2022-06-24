@@ -67,7 +67,7 @@ sources:
           default: "1_GS"
           allowed: ["1_GS", "2_GE", "3_MD"]
         datatype:
-          description: surface ("surf"), interior ("int"), or grid ("grid")
+          description: surface ("surf"), interior ("int"), vertical velocity ("int_wvel"), or grid ("grid")
           type: str
           default: "surf"
           allowed: ["surf", "int", "int_wvel", "grid"]
