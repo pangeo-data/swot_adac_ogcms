@@ -35,6 +35,8 @@ def all_params():
                     {"region": i[0], "datatype": i[1], "grid": i[2]} for i in more_kwargs
                 ]
                 cat_kwargs = cat_kwargs + more_kwargs
+                
+        all_params.update({item: cat_kwargs})
 
     return all_params, cat
 
@@ -50,6 +52,8 @@ def main(params_only=False, all_params=all_params):
         if not params_only:
             for d in all_params[item]:
                 print(f"\n\n{item}: loading parameterization {d}")
+                # this specific dataset has not been added yet, and I don't think there's a way
+                # to skip it in the `catalog.yaml` user paramaters, so we skip it manually here:
                 if item == "FESOM" and d["datatype"] == "int" and d["season"] == "aso":
                     pass
                 else:
