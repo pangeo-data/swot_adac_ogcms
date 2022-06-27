@@ -5,7 +5,6 @@ import intake
 
 def all_params():
     
-    all_params = {}
 
     cat = intake.open_catalog('catalog.yaml')
     for item in cat:
@@ -36,7 +35,6 @@ def all_params():
                 ]
                 cat_kwargs = cat_kwargs + more_kwargs
                 
-        all_params.update({item: cat_kwargs})
 
     return all_params, cat
 
