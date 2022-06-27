@@ -35,7 +35,7 @@ def all_params():
                     {"region": i[0], "datatype": i[1], "grid": i[2]} for i in more_kwargs
                 ]
                 cat_kwargs = cat_kwargs + more_kwargs
-        
+
         all_params.update({item: cat_kwargs})
 
     return all_params, cat
