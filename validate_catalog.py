@@ -3,12 +3,11 @@ from itertools import product
 
 import intake
 
-
 def all_params():
-
+    
     all_params = {}
 
-    cat = intake.open_catalog('catalog.yaml')
+    cat = intake.open_catalog('./catalog.yaml')
     for item in cat:
         description = cat[item].describe()
         params = description["user_parameters"]
