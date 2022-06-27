@@ -52,8 +52,13 @@ def main(params_only=False, all_params=all_params):
         if not params_only:
             for d in all_params[item]:
                 print(f"\n\n{item}: loading parameterization {d}")
-                ds = cat[item](**d).to_dask()
-                print(ds)
+                # this specific dataset has not been added yet, and I don't think there's a way
+                # to skip it in the `catalog.yaml` user paramaters, so we skip it manually here:
+                if item == "FESOM" and d["datatype"] == "int" and d["season"] == "aso":
+                    pass
+                else:
+                    ds = cat[item](**d).to_dask()
+                    print(ds)
 
 
 if __name__ == "__main__":
