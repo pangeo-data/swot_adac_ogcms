@@ -5,8 +5,9 @@ import intake
 
 def all_params():
     
+    all_params = {}
 
-    cat = intake.open_catalog('catalog.yaml')
+    cat = intake.open_catalog('./catalog.yaml')
     for item in cat:
         description = cat[item].describe()
         params = description["user_parameters"]
@@ -34,7 +35,9 @@ def all_params():
                     {"region": i[0], "datatype": i[1], "grid": i[2]} for i in more_kwargs
                 ]
                 cat_kwargs = cat_kwargs + more_kwargs
-                
+        
+        all_params.update({item: cat_kwargs})
+
     return all_params, cat
 
 
@@ -49,13 +52,8 @@ def main(params_only=False, all_params=all_params):
         if not params_only:
             for d in all_params[item]:
                 print(f"\n\n{item}: loading parameterization {d}")
-                # this specific dataset has not been added yet, and I don't think there's a way
-                # to skip it in the `catalog.yaml` user paramaters, so we skip it manually here:
-                if item == "FESOM" and d["datatype"] == "int" and d["season"] == "aso":
-                    pass
-                else:
-                    ds = cat[item](**d).to_dask()
-                    print(ds)
+                ds = cat[item](**d).to_dask()
+                print(ds)
 
 
 if __name__ == "__main__":
