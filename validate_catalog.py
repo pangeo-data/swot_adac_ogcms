@@ -35,7 +35,6 @@ def all_params():
                 ]
                 cat_kwargs = cat_kwargs + more_kwargs
                 
-
     return all_params, cat
 
 
