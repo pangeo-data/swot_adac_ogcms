@@ -9,4 +9,5 @@ The egress charges to access the data from OSN are free.
 
 Intermediate results which were computationally intense to produce were saved on our Google Cloud scratch bucket, and are not publicly available.
 For example, the [potential densities](https://github.com/pangeo-data/swot_adac_ogcms/blob/main/Potential-density.ipynb) for each simulation, which are called in the Filter notebooks to compute the mixed-layer depths, are computed from the outputs on OSN and saved as a intermediate results on our bucket.
+Nonetheless, our results are still reproducible from the data on OSN by re-running [this notebook](https://github.com/pangeo-data/swot_adac_ogcms/blob/main/Potential-density.ipynb).
 
